@@ -1,1 +1,177 @@
 
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Drawing App</title>
+  <style>
+    body,
+    html {
+      background: #99aaff;
+      padding: 0px;
+    }
+
+    .board {
+      /* border: 10px solid gray; */
+      position: absolute;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    canvas {
+      display: block;
+      border: 1px solid black;
+      border-radius: 3%;
+      background: white;
+      margin: auto;
+      position: absolute;
+      top: 0%;
+      /* left: 90px; */
+      left: 105%;
+    }
+
+    .color {
+      margin: 0px;
+      height: 50px;
+      width: 90px;
+      top: 0%;
+      border-radius: 45%;
+    }
+
+    #red {
+      background: red;
+    }
+
+    #orange {
+      background: orange;
+    }
+
+    #yellow {
+      background: yellow;
+    }
+
+    #green {
+      background: green;
+    }
+
+    #blue {
+      background: blue;
+    }
+
+    #indigo {
+      background: indigo;
+    }
+
+    #violet {
+      background: violet;
+    }
+
+    #white {
+      background: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="board">
+    <div class="color" id="red" onclick="red()"></div>
+    <div class="color" id="orange" onclick="orange()"></div>
+    <div class="color" id="yellow" onclick="yellow()"></div>
+    <div class="color" id="green" onclick="green()"></div>
+    <div class="color" id="blue" onclick="blue()"></div>
+    <div class="color" id="indigo" onclick="indigo()"></div>
+    <div class="color" id="violet" onclick="violet()"></div>
+    <div class="color" id="white" onclick="white()"></div>
+
+    <canvas id="canvas" width="600" height="400"> </canvas>
+
+  </div>
+  <script>
+    canvas = document.querySelector("canvas");
+    ctx = canvas.getContext('2d');
+
+
+
+    currentColor = "white";
+
+    function red() {
+      currentColor = "red";
+    }
+
+    function orange() {
+      currentColor = "orange";
+    }
+
+    function yellow() {
+      currentColor = "yellow";
+    }
+
+    function green() {
+      currentColor = "green";
+    }
+
+    function blue() {
+      currentColor = "blue";
+
+    }
+
+    function indigo() {
+      currentColor = "indigo";
+    }
+
+    function violet() {
+      currentColor = "violet";
+    }
+
+    function white() {
+      currentColor = "white";
+    }
+    var mousedown = false;
+    var x = 0;
+    var y = 0;
+    var width = 15;
+
+    canvas.addEventListener("mousedown", function(e) {
+      mousedown = true;
+      x = e.offsetX;
+      y = e.offsetY;
+
+      ctx.fillStyle = currentColor;
+      ctx.beginPath();
+      ctx.arc(e.offsetX, e.offsetY, width / 2, 0, 2 * Math.PI);
+      ctx.fill();
+
+
+
+    });
+    canvas.addEventListener("mousemove", function(e) {
+      if (!mousedown) {
+        return;
+      }
+
+      ctx.beginPath();
+      ctx.arc(e.offsetX, e.offsetY, width / 2, 0, 2 * Math.PI);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.strokeStyle = currentColor;
+      ctx.lineWidth = width;
+      ctx.moveTo(x, y);
+      ctx.lineTo(e.offsetX, e.offsetY);
+      ctx.stroke();
+      ctx.closePath();
+
+      x = e.offsetX;
+      y = e.offsetY;
+    });
+    canvas.addEventListener("mouseup", function(e) {
+      mousedown = false;
+
+    });
+    canvas.addEventListener("mouseout", function(e) {
+      mousedown = false;
+    });
+  </script>
+
+</body>
